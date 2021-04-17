@@ -19,3 +19,6 @@ cmd="$cmd --n_validation 20"
 cmd="$cmd --n_test 5"
 #cmd="$cmd --print_summary_only"
 cmd="$cmd > $logdir/${ct}.log 2>&1"
+
+echo $cmd
+eval $cmd

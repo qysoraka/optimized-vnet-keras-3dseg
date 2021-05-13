@@ -6,4 +6,5 @@ Keras-Preprocessing==1.1.0
 nibabel==2.5.1
 numpy==1.22.0
 pathlib2==2.3.5
-scipy==
+scipy==1.10.0
+tensorbo

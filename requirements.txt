@@ -9,4 +9,4 @@ pathlib2==2.3.5
 scipy==1.10.0
 tensorboard==1.15.0
 tensorflow-datasets==1.2.0
-tensorf
+tensorflow-esti

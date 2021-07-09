@@ -16,4 +16,4 @@ tensorflow-io==0.8.0
 tensorflow-metadata==0.15.1
 tensorflow-probability==0.8.0
 tensorflow-serving-api-gpu==1.13.0
-tfds-nightly==1.0.1.dev2
+tfds-nightly==1.0.1.dev20190305010

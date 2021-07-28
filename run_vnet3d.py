@@ -40,3 +40,13 @@ if __name__ == '__main__':
     try:
         os.system('mkdir -p ' + cloud_dir)
     except:
+        pass
+
+    # Get data
+    # [IDs] Get sample IDs from src_dir
+    src_dir = args.nii_dir #'data/data_with_augmentation/'
+    assert os.path.exists(src_dir), "[ERROR] {} does not exist".format(src_dir)
+    fpaths = glob.glob(src_dir + '/*.nii.gz')
+    sids = sorted(set([os.path.split(x)[-1].rsplit('_', 1)[0] for x in fpaths]))
+    
+    seed = 0

@@ -50,3 +50,15 @@ if __name__ == '__main__':
     sids = sorted(set([os.path.split(x)[-1].rsplit('_', 1)[0] for x in fpaths]))
     
     seed = 0
+    np.random.seed(seed)
+    shuffle = True
+    if shuffle:
+        np.random.shuffle(sids)
+    
+    # Modules
+    def lr_schedule_wrapper(learning_rate):
+        learning_rate = learning_rate
+        def lr_schedule(epoch):
+            #learning_rate = 1e-4
+            if epoch > 10:
+                learning_rate /= 2

@@ -72,3 +72,14 @@ if __name__ == '__main__':
         return lr_schedule
     
     # Set params and callbacks
+    n_val, n_test = args.n_validation, args.n_test
+    n_train = len(sids) - n_val - n_test
+    if n_train < 0:
+        raise Exception("n_train({}) < n_validation({})+n_test({})".format(n_train, n_val, n_test))
+    elif n_train < n_val + n_test:
+        raise Exception("n_train({}) <  n_validation({})+n_test({})".format(n_train, n_val, n_test))
+
+    train_ids = sids[:n_train]
+    valid_ids = sids[n_train : n_train+n_val]
+    test_ids = sids[n_train+n_val : n_train+n_val+n_test]
+    print("IDs", len(sids), len(train_ids), len(valid_ids), len(test_ids), n_train)

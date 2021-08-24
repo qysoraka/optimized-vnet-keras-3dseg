@@ -83,3 +83,18 @@ if __name__ == '__main__':
     valid_ids = sids[n_train : n_train+n_val]
     test_ids = sids[n_train+n_val : n_train+n_val+n_test]
     print("IDs", len(sids), len(train_ids), len(valid_ids), len(test_ids), n_train)
+    epochs = 100
+    h5_dir = os.path.join(cloud_dir, 'models')
+    if not os.path.exists(h5_dir):
+        os.system('mkdir {}'.format(h5_dir))
+    prefix = os.path.join(h5_dir, args.core_tag + 
+        "_b{}".format(args.batch_size))
+        #"_s{}_b{}".format(args.image_size, args.batch_size))
+    pattern = re.compile(prefix + '_vl([\d\.-]+)')
+    existing_models = glob.glob(prefix + '_vl*.h5')
+    existing_models.sort(key = lambda x: float(pattern.search(x).groups()[0][:-1]))
+    
+    model_weights = os.path.join(h5_dir, args.core_tag + '.h5')
+    model_architecture = os.path.join(h5_dir, args.core_tag + '.json')
+    checkpoint_cb = ModelAndWeightsCheckpoint(model_weights, model_architecture, 
+        monitor='val_dice_coefficient', verbose=1, save_best_only=True, mode='max')

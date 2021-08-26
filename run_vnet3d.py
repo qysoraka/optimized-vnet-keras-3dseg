@@ -113,3 +113,12 @@ if __name__ == '__main__':
     log_dir = os.path.join(tf_log_dir, args.core_tag + '_' + time_tag)
     tensorboard_cb = TensorBoard(log_dir=log_dir)
     
+    callbacks_list = [checkpoint_cb, 
+                      # lr_cb,
+                      earlystopping_cb,
+                      tensorboard_cb]
+    
+    # Generate data
+    image_shape = (args.image_size,)*3
+    #FAIL: (144,144,144) #(160,160,144) #(192,192,144) #(208,208,144) #(240,240,144) 
+    gen_factor = 3

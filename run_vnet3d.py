@@ -122,3 +122,9 @@ if __name__ == '__main__':
     image_shape = (args.image_size,)*3
     #FAIL: (144,144,144) #(160,160,144) #(192,192,144) #(208,208,144) #(240,240,144) 
     gen_factor = 3
+    train_gen = DataGenerator(train_ids, src_dir, n_samples=n_train*gen_factor,
+        rotation_range=0.4,
+        batch_size=args.batch_size, image_shape=image_shape)
+    valid_gen = DataGenerator(valid_ids, src_dir, n_samples=n_val*gen_factor,
+        rotation_range=0.4,
+        batch_size=args.batch_size, image_shape=image_shape)

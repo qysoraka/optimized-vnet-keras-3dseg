@@ -98,3 +98,18 @@ if __name__ == '__main__':
     model_architecture = os.path.join(h5_dir, args.core_tag + '.json')
     checkpoint_cb = ModelAndWeightsCheckpoint(model_weights, model_architecture, 
         monitor='val_dice_coefficient', verbose=1, save_best_only=True, mode='max')
+    lr_cb = LearningRateScheduler(lr_schedule_wrapper(args.learning_rate))
+    earlystopping_cb = EarlyStopping(monitor='val_dice_coefficient', min_delta=0.001, 
+        patience=15, verbose=1, mode='max', baseline=None, 
+        restore_best_weights=True)
+    time_tag = time.strftime('%Y%m%d_%H%M%S', time.localtime())
+    tf_log_dir = '{}/{}/logs/vnet'.format(cloud_dir, hostname)
+    try:
+        os.system('mkdir -p ' + tf_log_dir)
+    except:
+        pass
+    if not os.path.exists(tf_log_dir):
+        raise Exception("{} does not exist".format(tf_log_dir))
+    log_dir = os.path.join(tf_log_dir, args.core_tag + '_' + time_tag)
+    tensorboard_cb = TensorBoard(log_dir=log_dir)
+    

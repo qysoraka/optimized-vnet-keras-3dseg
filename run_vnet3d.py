@@ -149,3 +149,18 @@ if __name__ == '__main__':
     if len(existing_models) > 0: # if saved model exists
         print(existing_models)
         best_model = existing_models[0] # sorted ix 0 has lowest vl
+    #    model.load_weights(best_model)
+        print(best_model)
+    model.compile(optimizer=optimizer, loss=dice_loss, metrics=[dice_coefficient])
+
+    if args.print_summary_only:
+        model.summary(line_length=150)
+        raise Exception("args.print_summary_only = True")
+    
+    
+    # Run model
+    history = model.fit_generator(train_gen, 
+                                  validation_data=valid_gen, 
+                                  steps_per_epoch=train_steps,
+                                  validation_steps=valid_steps,
+                                  verbose=1,

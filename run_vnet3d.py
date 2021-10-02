@@ -164,3 +164,6 @@ if __name__ == '__main__':
                                   steps_per_epoch=train_steps,
                                   validation_steps=valid_steps,
                                   verbose=1,
+                                  callbacks = callbacks_list,
+                                  epochs=epochs)
+    

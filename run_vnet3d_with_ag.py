@@ -24,3 +24,18 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', '-op', required=True, default='adam')
     parser.add_argument('--print_summary_only', action='store_true')
     parser.set_defaults(print_summary_only=False)
+
+    args = parser.parse_args()
+    if args.optimizer == 'adam':
+        args.learning_rate /= 20 # reduce lr for adam
+    elif args.optimizer == 'sgd':
+        pass
+    else:
+        raise Exception('[ERROR] optimizer = {}'.format(args.optimizer))
+
+    # Cloud settings
+    home_dir = os.path.expanduser("~")
+    hostname = os.uname()[1]
+    cloud_dir = '{}/gdrive/cloud/{}'.format(home_dir, hostname)
+    try:
+        os.system('mkdir -p ' + cloud_dir)

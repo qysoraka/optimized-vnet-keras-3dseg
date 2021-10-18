@@ -51,3 +51,10 @@ if __name__ == '__main__':
     
     seed = 0
     np.random.seed(seed)
+    shuffle = True
+    if shuffle:
+        np.random.shuffle(sids)
+    
+    # Modules
+    def lr_schedule_wrapper(learning_rate):
+        learning_rate = learning_rate

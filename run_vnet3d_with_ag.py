@@ -68,3 +68,13 @@ if __name__ == '__main__':
                 learning_rate /= 2
             tf.summary.scalar('learning_rate', learning_rate)
             #tf.compat.v1.summary.scalar('learning_rate', learning_rate)
+            return learning_rate
+        return lr_schedule
+    
+    # Set params and callbacks
+    n_val, n_test = args.n_validation, args.n_test
+    n_train = len(sids) - n_val - n_test
+    if n_train < 0:
+        raise Exception("n_train({}) < n_validation({})+n_test({})".format(n_train, n_val, n_test))
+    elif n_train < n_val + n_test:
+        raise Exception("n_train({}) <  n_validation({})+n_test({})".format(n_train, n_val, n_test))

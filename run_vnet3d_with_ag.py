@@ -58,3 +58,13 @@ if __name__ == '__main__':
     # Modules
     def lr_schedule_wrapper(learning_rate):
         learning_rate = learning_rate
+        def lr_schedule(epoch):
+            #learning_rate = 1e-4
+            if epoch > 10:
+                learning_rate /= 2
+            if epoch > 20:
+                learning_rate /= 2
+            if epoch > 50:
+                learning_rate /= 2
+            tf.summary.scalar('learning_rate', learning_rate)
+            #tf.compat.v1.summary.scalar('learning_rate', learning_rate)

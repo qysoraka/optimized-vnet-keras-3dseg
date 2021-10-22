@@ -88,3 +88,18 @@ if __name__ == '__main__':
     if not os.path.exists(h5_dir):
         os.system('mkdir {}'.format(h5_dir))
     prefix = os.path.join(h5_dir, args.core_tag + 
+        "_b{}".format(args.batch_size))
+        #"_s{}_b{}".format(args.image_size, args.batch_size))
+    pattern = re.compile(prefix + '_vl([\d\.-]+)')
+    existing_models = glob.glob(prefix + '_vl*.h5')
+    existing_models.sort(key = lambda x: float(pattern.search(x).groups()[0][:-1]))
+    
+    model_weights = os.path.join(h5_dir, args.core_tag + '.h5')
+    model_architecture = os.path.join(h5_dir, args.core_tag + '.json')
+    checkpoint_cb = ModelAndWeightsCheckpoint(model_weights, model_architecture,
+        monitor='val_dice_coefficient', verbose=1, save_best_only=True, mode='max')
+    lr_cb = LearningRateScheduler(lr_schedule_wrapper(args.learning_rate))
+    earlystopping_cb = EarlyStopping(monitor='val_dice_coefficient', min_delta=0.001, 
+        patience=15, verbose=1, mode='max', baseline=None, 
+        restore_best_weights=True)
+    time_tag = time.strftime('%Y%m%d_%H%M%S', time.localtime())

@@ -78,3 +78,13 @@ if __name__ == '__main__':
         raise Exception("n_train({}) < n_validation({})+n_test({})".format(n_train, n_val, n_test))
     elif n_train < n_val + n_test:
         raise Exception("n_train({}) <  n_validation({})+n_test({})".format(n_train, n_val, n_test))
+
+    train_ids = sids[:n_train]
+    valid_ids = sids[n_train : n_train+n_val]
+    test_ids = sids[n_train+n_val : n_train+n_val+n_test]
+    print("IDs", len(sids), len(train_ids), len(valid_ids), len(test_ids), n_train)
+    epochs = 100
+    h5_dir = os.path.join(cloud_dir, 'models')
+    if not os.path.exists(h5_dir):
+        os.system('mkdir {}'.format(h5_dir))
+    prefix = os.path.join(h5_dir, args.core_tag + 

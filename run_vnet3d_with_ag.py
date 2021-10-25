@@ -128,3 +128,13 @@ if __name__ == '__main__':
     valid_gen = DataGenerator(valid_ids, src_dir, n_samples=n_val*gen_factor,
         rotation_range=0.4,
         batch_size=args.batch_size, image_shape=image_shape)
+    test_gen = DataGenerator(test_ids, src_dir, n_samples=n_test*gen_factor,
+        rotation_range=0.4,
+        batch_size=args.batch_size, image_shape=image_shape)
+    train_steps = len(train_ids*gen_factor) // args.batch_size
+    valid_steps = len(valid_ids*gen_factor) // args.batch_size
+    
+    # [V-Net 3D] # Fix #6: n_in=2 --> 4
+    model = VNet(image_shape=image_shape, n_in=4, n_out=3, 
+        strides=1, padding='same', kernel_size=5,
+        groups=args.group_size, data_format='channels_first',

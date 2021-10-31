@@ -155,3 +155,15 @@ if __name__ == '__main__':
 
     if args.print_summary_only:
         model.summary(line_length=150)
+        raise Exception("args.print_summary_only = True")
+    
+    
+    # Run model
+    history = model.fit_generator(train_gen, 
+                                  validation_data=valid_gen, 
+                                  steps_per_epoch=train_steps,
+                                  validation_steps=valid_steps,
+                                  verbose=1,
+                                  callbacks = callbacks_list,
+                                  epochs=epochs)
+    

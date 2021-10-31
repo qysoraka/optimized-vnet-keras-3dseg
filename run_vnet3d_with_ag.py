@@ -138,3 +138,20 @@ if __name__ == '__main__':
     model = VNet(image_shape=image_shape, n_in=4, n_out=3, 
         strides=1, padding='same', kernel_size=5,
         groups=args.group_size, data_format='channels_first',
+        filters=args.f_root, inter_filters=16)
+    if args.optimizer == 'adam':
+        optimizer = Adam(lr = args.learning_rate) # FIX #2
+    elif args.optimizer == 'sgd':
+        optimizer = SGD(lr=args.learning_rate, decay=1e-6, momentum=0.99)
+    else:
+        raise Exception('[ERROR] args.optimizer = {}'.format(args.optimizer))
+    
+    if len(existing_models) > 0: # if saved model exists
+        print(existing_models)
+        best_model = existing_models[0] # sorted ix 0 has lowest vl
+    #    model.load_weights(best_model)
+        print(best_model)
+    model.compile(optimizer=optimizer, loss=dice_loss, metrics=[dice_coefficient])
+
+    if args.print_summary_only:
+        model.summary(line_length=150)

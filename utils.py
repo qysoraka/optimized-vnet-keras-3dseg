@@ -39,3 +39,15 @@ class ModelAndWeightsCheckpoint(Callback):
             be `min`, etc. In `auto` mode, the direction is
             automatically inferred from the name of the monitored quantity.
         period: Interval (number of epochs) between checkpoints.
+    """
+
+    def __init__(self, filepath, jsonpath, monitor='val_loss', verbose=0,
+                 save_best_only=False, 
+                 mode='auto', period=1):
+        super(ModelAndWeightsCheckpoint, self).__init__()
+        self.monitor = monitor
+        self.verbose = verbose
+        self.filepath = filepath
+        self.jsonpath = jsonpath
+        self.save_best_only = save_best_only
+        self.period = period

@@ -51,3 +51,16 @@ class ModelAndWeightsCheckpoint(Callback):
         self.jsonpath = jsonpath
         self.save_best_only = save_best_only
         self.period = period
+        self.epochs_since_last_save = 0
+
+        if mode not in ['auto', 'min', 'max']:
+            warnings.warn('ModelCheckpoint mode %s is unknown, '
+                          'fallback to auto mode.' % (mode),
+                          RuntimeWarning)
+            mode = 'auto'
+
+        if mode == 'min':
+            self.monitor_op = np.less
+            self.best = np.Inf
+        elif mode == 'max':
+            self.monitor_op = np.greater

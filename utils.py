@@ -64,3 +64,9 @@ class ModelAndWeightsCheckpoint(Callback):
             self.best = np.Inf
         elif mode == 'max':
             self.monitor_op = np.greater
+            self.best = -np.Inf
+        else:
+            if 'acc' in self.monitor or self.monitor.startswith('fmeasure'):
+                self.monitor_op = np.greater
+                self.best = -np.Inf
+            else:

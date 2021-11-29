@@ -70,3 +70,12 @@ class ModelAndWeightsCheckpoint(Callback):
                 self.monitor_op = np.greater
                 self.best = -np.Inf
             else:
+                self.monitor_op = np.less
+                self.best = np.Inf
+
+    def on_epoch_end(self, epoch, logs=None):
+        logs = logs or {}
+        self.epochs_since_last_save += 1
+        if self.epochs_since_last_save >= self.period:
+            self.epochs_since_last_save = 0
+            filepath = self.filepath.format(epoch=epoch + 1, **logs)

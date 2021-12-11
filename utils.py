@@ -102,3 +102,15 @@ class ModelAndWeightsCheckpoint(Callback):
                                   (epoch + 1, self.monitor, self.best))
             else:
                 if self.verbose > 0:
+                    print('\nEpoch %05d: saving model to %s' % (epoch + 1, filepath))
+                self.model.save_weights(filepath, overwrite=True)
+                with open(jsonpath, 'w') as f:
+                    f.write(self.model.to_json())
+
+
+def add_midlines(data):
+    assert isinstance(data, np.ndarray), "[ERROR] input image is not a np.array: {}".format(type(data))
+    arr = data.copy()
+    x_mid, y_mid, z_mid = np.median(np.array(([0]*3, data.shape)), axis=0).astype(int)
+    max_val = np.max(arr)
+    arr[x_mid-1:x_mid+1, :, :] = (max_val*0.2) * np.ones_like(arr[x_mid-1:x_mid+1, :, :])

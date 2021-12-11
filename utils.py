@@ -114,3 +114,11 @@ def add_midlines(data):
     x_mid, y_mid, z_mid = np.median(np.array(([0]*3, data.shape)), axis=0).astype(int)
     max_val = np.max(arr)
     arr[x_mid-1:x_mid+1, :, :] = (max_val*0.2) * np.ones_like(arr[x_mid-1:x_mid+1, :, :])
+    arr[:, y_mid-1:y_mid+1, :] = (max_val*0.5) * np.ones_like(arr[:, y_mid-1:y_mid+1, :])
+    arr[:, :, z_mid-1:z_mid+1] = max_val * np.ones_like(arr[:, :, z_mid-1:z_mid+1])
+    return arr
+
+
+def dice_coefficient(y_true, y_pred, squared=True, smooth=1e-8):
+    y_true_flat, y_pred_flat = K.flatten(y_true), K.flatten(y_pred)
+    dice_nom = 2 * K.sum(y_true_flat * y_pred_flat)

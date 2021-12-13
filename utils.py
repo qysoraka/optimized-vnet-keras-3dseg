@@ -122,3 +122,18 @@ def add_midlines(data):
 def dice_coefficient(y_true, y_pred, squared=True, smooth=1e-8):
     y_true_flat, y_pred_flat = K.flatten(y_true), K.flatten(y_pred)
     dice_nom = 2 * K.sum(y_true_flat * y_pred_flat)
+    if squared:
+        dice_denom = K.sum(K.square(y_true_flat) + K.square(y_pred_flat)) # squared form
+    else:
+        dice_denom = K.sum(K.abs(y_true_flat) + K.abs(y_pred_flat)) # abs form
+    dice_coef = (dice_nom + smooth) / (dice_denom + smooth)
+    return dice_coef
+    
+def dice_loss(y_true, y_pred, squared=True, smooth=1e-8):
+    dice_coef = dice_coefficient(y_true, y_pred, squared, smooth)
+    return 1 - dice_coef
+
+
+class Transform3D(object):
+    def __init__(self, rotation_range, shift_range, shear_range, zoom_range, flip, seed):
+        np.random.seed(seed)

@@ -137,3 +137,14 @@ def dice_loss(y_true, y_pred, squared=True, smooth=1e-8):
 class Transform3D(object):
     def __init__(self, rotation_range, shift_range, shear_range, zoom_range, flip, seed):
         np.random.seed(seed)
+        
+        self.rotation_angle = rotation_range * (random()-0.5)
+        
+        self.x_shift = shift_range * (random()-0.5) # 0.1 * 128 * [-1,+1]
+        self.y_shift = shift_range * (random()-0.5) # 0.1 * 128 * [-1,+1]
+        self.z_shift = shift_range * (random()-0.5) # 0.1 * 128 * [-1,+1]
+        
+        self.shear_matrix = np.array([[1, shear_range*(random()-0.5), shear_range*(random()-0.5)],
+                                      [shear_range*(random()-0.5), 1, shear_range*(random()-0.5)],
+                                      [shear_range*(random()-0.5), shear_range*(random()-0.5), 1]])
+        

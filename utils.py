@@ -148,3 +148,13 @@ class Transform3D(object):
                                       [shear_range*(random()-0.5), 1, shear_range*(random()-0.5)],
                                       [shear_range*(random()-0.5), shear_range*(random()-0.5), 1]])
         
+        self.zoom_factors = np.diag([zoom_range*(random()-0.5) for _ in range(3)])
+        self.zoom_matrix = np.eye(3) - self.zoom_factors
+        
+        self.flip = flip
+        self.flip_axis = []
+        if self.flip:
+            self.flip_axis = [x for x in range(3) if random()>0.5]
+            
+    def __repr__(self):
+        return ("rotation_angle: {rotation_angle:.2f}, ".format(rotation_angle=self.rotation_angle) +

@@ -158,3 +158,12 @@ class Transform3D(object):
             
     def __repr__(self):
         return ("rotation_angle: {rotation_angle:.2f}, ".format(rotation_angle=self.rotation_angle) +
+               "xyz-shifts: ({x_shift:.2f},{y_shift:.2f},{z_shift:.2f})\n".format(x_shift=self.x_shift, y_shift=self.y_shift, z_shift=self.z_shift) +
+               "shear_matrix: {shear_matrix}\n".format(shear_matrix = np.round(self.shear_matrix, 2).tolist()) + 
+               "zoom_factors: {zoom_factors}, ".format(zoom_factors = np.round(self.zoom_factors, 2).tolist()) +
+               "flip_axis: {flip_axis}".format(flip_axis = self.flip_axis))
+    
+    def get_tag(self):
+        r_tag = 'r{:.1f}'.format(self.rotation_angle)
+        xyz_tag = 'xyz{:.0f},{:.0f},{:.0f}'.format(*np.array([self.x_shift, self.y_shift, self.z_shift])*100)
+        f_tag = 'f{:s}'.format(str(self.flip_axis).replace('[','').replace(']','').replace(', ','')) 

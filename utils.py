@@ -167,3 +167,14 @@ class Transform3D(object):
         r_tag = 'r{:.1f}'.format(self.rotation_angle)
         xyz_tag = 'xyz{:.0f},{:.0f},{:.0f}'.format(*np.array([self.x_shift, self.y_shift, self.z_shift])*100)
         f_tag = 'f{:s}'.format(str(self.flip_axis).replace('[','').replace(']','').replace(', ','')) 
+        sz_tag = ['{:.0f}'.format(x) for x in 100*self.shear_matrix.dot(self.zoom_matrix).flatten()]
+        sz_tag = 'sz' + ','.join(sz_tag)
+        tag = '_'.join((r_tag, xyz_tag, f_tag, sz_tag))
+        return tag
+    
+    
+def transform_3d_array(arr, transform):
+    """
+    Return random (based on seed) transformation of 3D-array.
+    Applies: rotation, shift, shear, zoom, and flip.
+    Disclaimer: Tested only on 128x128x128 images.

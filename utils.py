@@ -178,3 +178,11 @@ def transform_3d_array(arr, transform):
     Return random (based on seed) transformation of 3D-array.
     Applies: rotation, shift, shear, zoom, and flip.
     Disclaimer: Tested only on 128x128x128 images.
+    """
+    
+    #assert arr.shape == (128, 128, 128) # assume 128
+    c_in = 0.5 * np.array(arr.shape)
+    c_out = 0.5 * np.array(arr.shape)
+    
+    # Rotate: only using the z-axis (x,y-plane)
+    rotated = interpolation.rotate(arr, transform.rotation_angle, axes=(0,1), order=0, reshape=False)

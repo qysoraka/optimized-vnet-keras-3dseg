@@ -186,3 +186,10 @@ def transform_3d_array(arr, transform):
     
     # Rotate: only using the z-axis (x,y-plane)
     rotated = interpolation.rotate(arr, transform.rotation_angle, axes=(0,1), order=0, reshape=False)
+    
+    # Shift
+    x_L, y_L, z_L = rotated.shape # pixel lengths
+    x_shift = x_L * transform.x_shift
+    y_shift = y_L * transform.y_shift
+    z_shift = z_L * transform.z_shift
+    shift_offset = np.array([x_shift, y_shift, z_shift])

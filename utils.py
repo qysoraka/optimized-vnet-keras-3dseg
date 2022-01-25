@@ -193,3 +193,12 @@ def transform_3d_array(arr, transform):
     y_shift = y_L * transform.y_shift
     z_shift = z_L * transform.z_shift
     shift_offset = np.array([x_shift, y_shift, z_shift])
+    
+    # Shear
+    shear_offset = c_in - c_out.dot(transform.shear_matrix)
+    
+    # Zoom
+    zoom_offset = np.diag(np.array(arr.shape)/2 * transform.zoom_factors)
+    
+    # Shift + Shear + Zoom applied
+    matrix = transform.zoom_matrix.dot(transform.shear_matrix)

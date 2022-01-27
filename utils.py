@@ -202,3 +202,10 @@ def transform_3d_array(arr, transform):
     
     # Shift + Shear + Zoom applied
     matrix = transform.zoom_matrix.dot(transform.shear_matrix)
+    offset = shift_offset + shear_offset + zoom_offset
+    transformed = interpolation.affine_transform(rotated, matrix, offset=offset, order=0)
+    
+    # Flip added
+    if transform.flip:
+        transformed = np.flip(transformed, axis=transform.flip_axis)
+    

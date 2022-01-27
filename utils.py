@@ -209,3 +209,11 @@ def transform_3d_array(arr, transform):
     if transform.flip:
         transformed = np.flip(transformed, axis=transform.flip_axis)
     
+    return transformed
+
+
+def fit_image_to_shape(arr, dst_shape=np.array([64,64,64]), order=0):
+    return zoom(arr, np.divide(dst_shape, arr.shape), order=order)
+
+
+def transform_and_save_data(transform, src_fpath, dst_dir, sample_id, tag, draw_midplanes=False):

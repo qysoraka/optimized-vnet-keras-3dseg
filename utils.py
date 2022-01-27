@@ -234,3 +234,11 @@ def transform_and_save_data(transform, src_fpath, dst_dir, sample_id, tag, draw_
 def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
                     rotation_range, shift_range, shear_range, zoom_range, flip, num_dst_samples,
                     dst_shape=(64,64,64), file_extension='nii.gz', draw_midplanes=False):
+    
+    assert os.path.isdir(src_dir), "[ERROR] {} is not a dir".format(src_dir)
+    assert os.path.isdir(dst_dir), "[ERROR] {} is not a dir".format(dst_dir)
+    tags = image_tags + label_tags
+    
+    sample_ids = set()
+    image_files = defaultdict(dict)
+    label_files = defaultdict(dict)

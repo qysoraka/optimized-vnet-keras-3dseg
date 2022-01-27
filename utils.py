@@ -242,3 +242,13 @@ def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
     sample_ids = set()
     image_files = defaultdict(dict)
     label_files = defaultdict(dict)
+    
+    fpaths = [x.as_posix() for x in Path(src_dir).rglob('*.'+file_extension)]
+    for fpath in fpaths: # fpath: /path/to/SAMPLEID_seg|t1|t1ce|flair|t2.nii.gz
+        fname = os.path.split(fpath)[-1]
+        assert fname.endswith(file_extension), "[ERROR] {} does not end with {}".format(fname, file_extension)
+        
+        at_least_one_tag_in_fname = False
+        for tag in tags:
+            if tag in fname:
+                at_least_one_tag_in_fname = True

@@ -217,3 +217,20 @@ def fit_image_to_shape(arr, dst_shape=np.array([64,64,64]), order=0):
 
 
 def transform_and_save_data(transform, src_fpath, dst_dir, sample_id, tag, draw_midplanes=False):
+    arr = nibabel.load(src_fpath).get_data()
+    arr = fit_image_to_shape(arr)
+    if draw_midplanes:
+        arr = add_midlines(arr)
+    arr = transform_3d_array(arr, transform)
+    img = nibabel.Nifti1Image(arr, np.eye(4))
+    dst_fname = '{}_{}_{}.nii.gz'.format(sample_id, transform.get_tag(), tag)
+    dst_fpath = os.path.join(dst_dir, dst_fname)
+    if os.path.exists(dst_fpath):
+        print("[LOG] {} already exists. Will not save image".format(dst_fpath))
+    else:
+        nibabel.save(img, dst_fpath)
+    
+    
+def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
+                    rotation_range, shift_range, shear_range, zoom_range, flip, num_dst_samples,
+                    dst_shape=(64,64,64), file_extension='nii.gz', draw_midplanes=False):

@@ -252,3 +252,14 @@ def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
         for tag in tags:
             if tag in fname:
                 at_least_one_tag_in_fname = True
+                sample_id = fname[:fname.index(tag)-1]
+                sample_ids.add(sample_id)
+                if tag in image_tags:
+                    image_files[sample_id][tag] = (fname, fpath)
+                else:
+                    label_files[sample_id][tag] = (fname, fpath)
+        assert at_least_one_tag_in_fname, "[ERROR] No tags in {}".format(fname)
+    
+    sample_ids = sorted(sample_ids)# sort by alphabetical order
+    num_samples_made = 0
+    while num_dst_samples > num_samples_made:

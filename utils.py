@@ -263,3 +263,21 @@ def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
     sample_ids = sorted(sample_ids)# sort by alphabetical order
     num_samples_made = 0
     while num_dst_samples > num_samples_made:
+        for ix, sample_id in enumerate(sample_ids):
+            files_for_all_tags_made = False
+            num_files_made_for_tag = 0
+            seed = num_samples_made # set same seed for the tags of the same sample
+            transform = Transform3D(rotation_range, shift_range, shear_range, zoom_range, flip, seed)
+
+            for tag in image_tags:
+                src_fname, src_fpath = image_files[sample_id][tag]
+                transform_and_save_data(transform, src_fpath, dst_dir, sample_id, tag, draw_midplanes)
+                num_files_made_for_tag += 1
+            for tag in label_tags:
+                src_fname, src_fpath = label_files[sample_id][tag]
+                transform_and_save_data(transform, src_fpath, dst_dir, sample_id, tag, draw_midplanes)
+                num_files_made_for_tag += 1
+                
+            assert num_files_made_for_tag % len(tags) == 0, "ERROR: Not all files for tags made for {}".format(sample_id)
+            num_samples_made += 1
+        # for sample end

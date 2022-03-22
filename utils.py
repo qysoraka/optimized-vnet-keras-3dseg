@@ -281,3 +281,17 @@ def augment_3d_data(src_dir, dst_dir, image_tags, label_tags,
             assert num_files_made_for_tag % len(tags) == 0, "ERROR: Not all files for tags made for {}".format(sample_id)
             num_samples_made += 1
         # for sample end
+        
+        
+class DataGenerator(keras.utils.Sequence):
+    def __init__(self, ids, path, n_samples, batch_size=4, image_shape=(64,64,64), 
+                rotation_range=0.2, shift_range=0.2, shear_range=0.2, zoom_range=0.2, flip=True):
+        self.ids = ids
+        self.path = path
+        self.n_samples = n_samples # samples to create
+        self.batch_size = batch_size
+        #self.image_size = image_size
+        #self.image_shape = (self.image_size,)*3
+        self.image_shape = image_shape
+        self.tids = [(name, True) for name in self.ids] # augment orig input as well
+        

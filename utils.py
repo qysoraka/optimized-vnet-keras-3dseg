@@ -316,3 +316,17 @@ class DataGenerator(keras.utils.Sequence):
         t1_path = os.path.join(self.path, id_name + '_t1.nii.gz')
         t2_path = os.path.join(self.path, id_name + '_t2.nii.gz')
         t1ce_path = os.path.join(self.path, id_name + '_t1ce.nii.gz')
+        flair_path = os.path.join(self.path, id_name + '_flair.nii.gz')
+        seg_path = os.path.join(self.path, id_name + '_seg.nii.gz')
+        assert os.path.exists(t1_path), "ERROR: {} does not exist".format(t1_path)
+        assert os.path.exists(t2_path), "ERROR: {} does not exist".format(t2_path)
+        assert os.path.exists(t1ce_path), "ERROR: {} does not exist".format(t1ce_path)
+        assert os.path.exists(flair_path), "ERROR: {} does not exist".format(flair_path)
+        assert os.path.exists(seg_path), "ERROR: {} does not exist".format(seg_path)
+        
+        # Read and concatenate normalized images
+        t1 = fit_image_to_shape(nibabel.load(t1_path).get_data(), dst_shape=self.image_shape) / 255.
+        t2 = fit_image_to_shape(nibabel.load(t2_path).get_data(), dst_shape=self.image_shape) / 255.
+        t1ce = fit_image_to_shape(nibabel.load(t1ce_path).get_data(), dst_shape=self.image_shape) / 255.
+        flair = fit_image_to_shape(nibabel.load(flair_path).get_data(), dst_shape=self.image_shape) / 255.
+        #image = np.array([t1, t2, t1ce, flair]).transpose(1,2,3,0) # channels_last

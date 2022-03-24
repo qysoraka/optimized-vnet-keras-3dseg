@@ -295,3 +295,15 @@ class DataGenerator(keras.utils.Sequence):
         self.image_shape = image_shape
         self.tids = [(name, True) for name in self.ids] # augment orig input as well
         
+        self.rotation_range = rotation_range
+        self.shift_range = shift_range
+        self.shear_range = shear_range
+        self.zoom_range = zoom_range
+        self.flip = flip
+
+        if self.n_samples > len(self.ids): # if there's something to transform
+            n_to_transform = self.n_samples - len(self.ids)
+            for ix, name in enumerate(cycle(self.ids)):
+                if ix < n_to_transform:
+                    self.tids.append((name, True))
+                else:

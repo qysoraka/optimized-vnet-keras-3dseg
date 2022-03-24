@@ -307,3 +307,12 @@ class DataGenerator(keras.utils.Sequence):
                 if ix < n_to_transform:
                     self.tids.append((name, True))
                 else:
+                    break
+        
+        self.on_epoch_end()
+        
+    def __load__(self, id_name, flag_transform): # load single image and label
+        # Path
+        t1_path = os.path.join(self.path, id_name + '_t1.nii.gz')
+        t2_path = os.path.join(self.path, id_name + '_t2.nii.gz')
+        t1ce_path = os.path.join(self.path, id_name + '_t1ce.nii.gz')

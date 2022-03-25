@@ -330,3 +330,12 @@ class DataGenerator(keras.utils.Sequence):
         t1ce = fit_image_to_shape(nibabel.load(t1ce_path).get_data(), dst_shape=self.image_shape) / 255.
         flair = fit_image_to_shape(nibabel.load(flair_path).get_data(), dst_shape=self.image_shape) / 255.
         #image = np.array([t1, t2, t1ce, flair]).transpose(1,2,3,0) # channels_last
+        # image = np.array([flair, t1ce])#t1, t1ce, t2]) # channels_first
+        image = np.array([flair, t1, t1ce, t2])#t1, t1ce, t2]) # channels_first # Fix #6
+        
+        # Transform if flag on
+        if flag_transform:
+            seed = np.random.randint(time.time() // 1000) # set same seed for the tags of the same sample
+            transform = Transform3D(self.rotation_range, self.shift_range, 
+                                    self.shear_range, self.zoom_range, self.flip, seed)
+#             print(transform.get_tag(), id_name) ##@##

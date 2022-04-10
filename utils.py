@@ -339,3 +339,13 @@ class DataGenerator(keras.utils.Sequence):
             transform = Transform3D(self.rotation_range, self.shift_range, 
                                     self.shear_range, self.zoom_range, self.flip, seed)
 #             print(transform.get_tag(), id_name) ##@##
+            for ix, arr in enumerate(image):
+                image[ix] = transform_3d_array(arr, transform)
+            seg = fit_image_to_shape(nibabel.load(seg_path).get_data(), dst_shape=self.image_shape)
+            seg = transform_3d_array(seg, transform)
+        else:
+            seg = fit_image_to_shape(nibabel.load(seg_path).get_data(), dst_shape=self.image_shape)
+            
+        # Read and concatenate labels
+        seg1 = (seg == 1) # tumor core
+        seg2 = (seg == 2) # edema

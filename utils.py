@@ -349,3 +349,17 @@ class DataGenerator(keras.utils.Sequence):
         # Read and concatenate labels
         seg1 = (seg == 1) # tumor core
         seg2 = (seg == 2) # edema
+        seg4 = (seg == 4) # enhancing
+        #label = np.array([seg1, seg2, seg4]).transpose(1,2,3,0) # channels_last
+        label = np.array([seg1, seg2, seg4]) # channels_first
+        
+        return image, label
+    
+    def __getitem__(self, ix): # load batch: batch_size*image, batch_size*label
+        # Resize batch_size if overflown
+        if (ix+1)*self.batch_size > len(self.tids): # when len(ids) % batch_size > 0
+            self.batch_size = len(self.tids) - ix*self.batch_size
+        
+        files_batch = self.tids[ix*self.batch_size : 
+                              (ix+1)*self.batch_size]
+#         print("files_batch:", files_batch) ##@##

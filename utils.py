@@ -363,3 +363,14 @@ class DataGenerator(keras.utils.Sequence):
         files_batch = self.tids[ix*self.batch_size : 
                               (ix+1)*self.batch_size]
 #         print("files_batch:", files_batch) ##@##
+        images, labels = [], []
+        for id_name, flag_transform in files_batch:
+            # load img, label corresponding to the ID
+            _image, _label = self.__load__(id_name, flag_transform)
+            images.append(_image)
+            labels.append(_label)
+        images = np.array(images)
+        labels = np.array(labels)
+        
+        return images, labels
+    

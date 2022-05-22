@@ -374,3 +374,8 @@ class DataGenerator(keras.utils.Sequence):
         
         return images, labels
     
+    def on_epoch_end(self):
+        pass
+    
+    def __len__(self):
+        return int(np.ceil(len(self.tids) / float(self.batch_size)))

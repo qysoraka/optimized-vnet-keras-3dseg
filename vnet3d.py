@@ -44,3 +44,12 @@ def up_conv_concat_conv(x, skip, filters, kernel_size, padding, strides, data_fo
 
 
 # Encoders
+def encoder1(x, filters, kernel_size, padding, strides, data_format, groups):
+    with tf.variable_scope('encoder1'):
+        with tf.variable_scope('conv'):
+            conv1 = conv(x, filters, kernel_size, padding, strides, data_format, groups)
+        with tf.variable_scope('addconv'):
+            addconv = adding_conv(conv1, conv1, filters, kernel_size, padding, strides, data_format, groups) # N
+        with tf.variable_scope('downconv'):
+            downconv = down_conv(addconv, filters*2, kernel_size, padding, data_format, groups) # N/2
+        return (addconv, downconv)

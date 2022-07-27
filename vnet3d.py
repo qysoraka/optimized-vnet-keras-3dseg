@@ -83,3 +83,17 @@ def encoder4(x, filters, kernel_size, padding, strides, data_format, groups):
         with tf.variable_scope('conv2'):
             conv2 = conv(conv1, filters, kernel_size, padding, strides, data_format, groups) # N/8
         with tf.variable_scope('addconv'):
+            addconv = adding_conv(conv2, x, filters, kernel_size, padding, strides, data_format, groups) # N/8
+        with tf.variable_scope('downconv'):
+            downconv = down_conv(addconv, filters*2, kernel_size, padding, data_format, groups) # N/16
+        return (addconv, downconv)
+
+
+# Bottom
+def bottom(x, filters, kernel_size, padding, strides, data_format, groups):
+    with tf.variable_scope('bottom'):
+        with tf.variable_scope('conv1'):
+            conv1 = conv(x, filters, kernel_size, padding, strides, data_format, groups)
+        with tf.variable_scope('conv2'):
+            conv2 = conv(conv1, filters, kernel_size, padding, strides, data_format, groups)
+        with tf.variable_scope('addconv'):

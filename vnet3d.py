@@ -129,3 +129,14 @@ def decoder2(x, skip, filters, kernel_size, padding, strides, data_format, group
         with tf.variable_scope('conv'):
             conv1 = conv(upconv, filters, kernel_size, padding, strides, data_format, groups)
         return conv1 # N/2
+
+def decoder1(x, skip, filters, kernel_size, padding, strides, data_format, groups):
+    with tf.variable_scope('decoder1'):
+        with tf.variable_scope('upconv'):
+            upconv = up_conv_concat_conv(x, skip, filters, kernel_size, padding, strides, data_format, groups) # N
+        return upconv # N
+
+
+# Attention gate
+def attention_gate(inp, g, intra_filters):
+    with tf.variable_scope('attention_gate'):

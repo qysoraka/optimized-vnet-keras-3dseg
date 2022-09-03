@@ -140,3 +140,12 @@ def decoder1(x, skip, filters, kernel_size, padding, strides, data_format, group
 # Attention gate
 def attention_gate(inp, g, intra_filters):
     with tf.variable_scope('attention_gate'):
+        data_format = 'channels_first'##@##
+        groups = 8 ##@##
+
+        # Gating signal processing
+        g = keras.layers.Conv3D(intra_filters, kernel_size=1, data_format=data_format)(g) # N/2
+        g = keras_contrib.layers.GroupNormalization(groups=groups, axis=1)(g) # N/2
+
+        # Skip signal processing: 
+        x = keras.layers.Conv3D(intra_filters, kernel_size=2, strides=2, padding='same', data_format=data_format)(inp) # N-->N/2

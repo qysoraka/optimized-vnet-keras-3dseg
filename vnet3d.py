@@ -149,3 +149,11 @@ def attention_gate(inp, g, intra_filters):
 
         # Skip signal processing: 
         x = keras.layers.Conv3D(intra_filters, kernel_size=2, strides=2, padding='same', data_format=data_format)(inp) # N-->N/2
+        x = keras_contrib.layers.GroupNormalization(groups=groups, axis=1)(x) # N
+
+        # Add and proc
+        g_x = keras.layers.Add()([g, x]) # N/2
+        psi = keras.layers.Activation('relu')(g_x) # N/2
+        psi = keras.layers.Conv3D(1, kernel_size = 1, padding='same', data_format=data_format)(psi) # N/2
+        psi = keras_contrib.layers.GroupNormalization(groups=1, axis=1)(psi) # N/2
+        psi = keras.layers.Activation('sigmoid')(psi) # N/2

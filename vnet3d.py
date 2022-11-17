@@ -157,3 +157,17 @@ def attention_gate(inp, g, intra_filters):
         psi = keras.layers.Conv3D(1, kernel_size = 1, padding='same', data_format=data_format)(psi) # N/2
         psi = keras_contrib.layers.GroupNormalization(groups=1, axis=1)(psi) # N/2
         psi = keras.layers.Activation('sigmoid')(psi) # N/2
+        alpha = keras.layers.UpSampling3D(size=2, data_format=data_format)(psi) # N/2-->N
+
+
+        x_hat = keras.layers.Multiply()([inp, alpha])
+        return x_hat
+
+
+# Model
+def VNet(n_in, n_out, image_shape, filters, kernel_size, padding, strides, data_format, groups, inter_filters):
+    with tf.variable_scope('VNet'):
+        input_dim = image_shape+(n_in,) if data_format=='channels_last' \
+            else (n_in,)+image_shape
+        
+        inputs = keras.layers.Input(input_dim)

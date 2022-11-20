@@ -189,3 +189,10 @@ def VNet(n_in, n_out, image_shape, filters, kernel_size, padding, strides, data_
         decoder1_conv = decoder1(decoder2_conv, encoder1_ag, filters*2**0, kernel_size, padding, strides, data_format, groups) # N
        
         with tf.variable_scope("output"):
+            outputs = keras.layers.Conv3D(n_out,
+                (1,1,1),
+                padding='same',
+                activation='sigmoid',
+                data_format=data_format)(decoder1_conv)
+
+            model = keras.models.Model(inputs, outputs)

@@ -196,3 +196,5 @@ def VNet(n_in, n_out, image_shape, filters, kernel_size, padding, strides, data_
                 data_format=data_format)(decoder1_conv)
 
             model = keras.models.Model(inputs, outputs)
+
+        return model

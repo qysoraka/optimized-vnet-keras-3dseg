@@ -53,3 +53,10 @@ def encoder1(x, filters, kernel_size, padding, strides, data_format, groups):
         with tf.variable_scope('downconv'):
             downconv = down_conv(addconv, filters*2, kernel_size, padding, data_format, groups) # N/2
         return (addconv, downconv)
+
+def encoder2(x, filters, kernel_size, padding, strides, data_format, groups):
+    with tf.variable_scope('encoder2'):
+        with tf.variable_scope('conv'):
+            conv1 = conv(x, filters, kernel_size, padding, strides, data_format, groups) 
+        with tf.variable_scope('addconv'):
+            addconv = adding_conv(conv1, x, filters, kernel_size, padding, strides, data_format, groups) # N/2

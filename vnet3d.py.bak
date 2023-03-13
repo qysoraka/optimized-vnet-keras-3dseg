@@ -143,3 +143,10 @@ def VNet(n_in, n_out, image_shape, filters, kernel_size, padding, strides, data_
     with tf.variable_scope('VNet'):
         input_dim = image_shape+(n_in,) if data_format=='channels_last' \
             else (n_in,)+image_shape
+        
+        inputs = keras.layers.Input(input_dim)
+        print('inputs', inputs.shape)
+
+        (encoder1_addconv, encoder1_downconv) = encoder1(inputs, filters*2**0, kernel_size, padding, strides, data_format, groups)
+        (encoder2_addconv, encoder2_downconv) = encoder2(encoder1_downconv, filters*2**1, kernel_size, padding, strides, data_format, groups)
+        (encoder3_addconv, encoder3_downconv) = encoder3(encoder2_downconv, filters*2**2, kernel_size, padding, strides, data_format, groups)

@@ -150,3 +150,12 @@ def VNet(n_in, n_out, image_shape, filters, kernel_size, padding, strides, data_
         (encoder1_addconv, encoder1_downconv) = encoder1(inputs, filters*2**0, kernel_size, padding, strides, data_format, groups)
         (encoder2_addconv, encoder2_downconv) = encoder2(encoder1_downconv, filters*2**1, kernel_size, padding, strides, data_format, groups)
         (encoder3_addconv, encoder3_downconv) = encoder3(encoder2_downconv, filters*2**2, kernel_size, padding, strides, data_format, groups)
+        (encoder4_addconv, encoder4_downconv) = encoder4(encoder3_downconv, filters*2**3, kernel_size, padding, strides, data_format, groups)
+
+        bottom_addconv = bottom(encoder4_downconv, filters*2**4, kernel_size, padding, strides, data_format, groups)
+
+        decoder4_conv = decoder4(bottom_addconv, encoder4_addconv, filters*2**3, kernel_size, padding, strides, data_format, groups)
+        decoder3_conv = decoder3(decoder4_conv, encoder3_addconv, filters*2**2, kernel_size, padding, strides, data_format, groups)
+        decoder2_conv = decoder2(decoder3_conv, encoder2_addconv, filters*2**1, kernel_size, padding, strides, data_format, groups)
+        decoder1_conv = decoder1(decoder2_conv, encoder1_addconv, filters*2**0, kernel_size, padding, strides, data_format, groups)
+       

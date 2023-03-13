@@ -123,3 +123,8 @@ def decoder3(x, skip, filters, kernel_size, padding, strides, data_format, group
         return conv2 # N/4
 
 def decoder2(x, skip, filters, kernel_size, padding, strides, data_format, groups):
+    with tf.variable_scope('decoder2'):
+        with tf.variable_scope('upconv'):
+            upconv = up_conv_concat_conv(x, skip, filters, kernel_size, padding, strides, data_format, groups) # N/2
+        with tf.variable_scope('conv'):
+            conv1 = conv(upconv, filters, kernel_size, padding, strides, data_format, groups)

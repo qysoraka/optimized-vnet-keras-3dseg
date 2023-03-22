@@ -1,1 +1,1 @@
-# 3D Segmentor: 
+# 3D Segmentor: V-Net Implem

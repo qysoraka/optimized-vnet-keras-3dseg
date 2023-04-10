@@ -1,3 +1,3 @@
 # 3D Segmentor: V-Net Implementation with Keras
 
-To 
+To setup the en

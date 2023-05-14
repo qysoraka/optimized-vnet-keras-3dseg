@@ -4,4 +4,4 @@ To setup the environment, install necessary packages using this command:
 ```pip3 install -r requirements.txt```
 
 Key features:
-- Implementation of modified V
+- Implementation of modified V-Net [ht

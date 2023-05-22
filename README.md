@@ -5,4 +5,4 @@ To setup the environment, install necessary packages using this command:
 
 Key features:
 - Implementation of modified V-Net [https://arxiv.org/abs/1606.04797]
--
+- Data augme

@@ -6,4 +6,6 @@ To setup the environment, install necessary packages using this command:
 Key features:
 - Implementation of modified V-Net [https://arxiv.org/abs/1606.04797]
 - Data augmentation features such as translate, zoom, shear, flip, and rotate
-- Supports group normalization (default group 
+- Supports group normalization (default group size 8)
+
+He

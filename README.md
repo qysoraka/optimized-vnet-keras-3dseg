@@ -9,4 +9,5 @@ Key features:
 - Supports group normalization (default group size 8)
 
 Help:
-```
+```bash
+usage: r

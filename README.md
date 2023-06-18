@@ -10,4 +10,4 @@ Key features:
 
 Help:
 ```bash
-usage: r
+usage: run_vnet3d.py [-

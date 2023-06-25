@@ -10,4 +10,4 @@ Key features:
 
 Help:
 ```bash
-usage: run_vnet3d.py [-h] --core_tag CORE_TAG --nii_dir N
+usage: run_vnet3d.py [-h] --core_tag CORE_TAG --nii_dir NII_DIR --bat

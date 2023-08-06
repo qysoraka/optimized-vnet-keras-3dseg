@@ -16,4 +16,4 @@ usage: run_vnet3d.py [-h] --core_tag CORE_TAG --nii_dir NII_DIR --batch_size
                      --n_validation N_VALIDATION --n_test N_TEST --optimizer
                      OPTIMIZER [--print_summary_only]
 
-Script t
+Script to run VNe

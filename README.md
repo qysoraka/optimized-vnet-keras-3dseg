@@ -19,4 +19,4 @@ usage: run_vnet3d.py [-h] --core_tag CORE_TAG --nii_dir NII_DIR --batch_size
 Script to run VNet3D
 
 optional arguments:
-  -h, -
+  -h, --help   

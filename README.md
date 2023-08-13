@@ -20,4 +20,4 @@ Script to run VNet3D
 
 optional arguments:
   -h, --help            show this help message and exit
-  --co
+  --core_tag COR

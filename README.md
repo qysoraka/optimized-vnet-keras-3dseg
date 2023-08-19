@@ -21,4 +21,5 @@ Script to run VNet3D
 optional arguments:
   -h, --help            show this help message and exit
   --core_tag CORE_TAG, -ct CORE_TAG
-  --nii_dir NII_DIR, -I NII_DI
+  --nii_dir NII_DIR, -I NII_DIR
+  --batc

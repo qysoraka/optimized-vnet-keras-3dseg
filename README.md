@@ -23,3 +23,4 @@ optional arguments:
   --core_tag CORE_TAG, -ct CORE_TAG
   --nii_dir NII_DIR, -I NII_DIR
   --batch_size BATCH_SIZE, -bs BATCH_SIZE
+  --image_size

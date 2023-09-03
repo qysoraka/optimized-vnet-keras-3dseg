@@ -25,4 +25,4 @@ optional arguments:
   --batch_size BATCH_SIZE, -bs BATCH_SIZE
   --image_size IMAGE_SIZE, -is IMAGE_SIZE
   --learning_rate LEARNING_RATE, -lr LEARNING_RATE
-  --
+  --group_size 

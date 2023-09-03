@@ -24,4 +24,4 @@ optional arguments:
   --nii_dir NII_DIR, -I NII_DIR
   --batch_size BATCH_SIZE, -bs BATCH_SIZE
   --image_size IMAGE_SIZE, -is IMAGE_SIZE
-  --learning_rate LEARNING_RATE, -lr L
+  --learning_rate LEARNING_RATE, -lr LEARNING

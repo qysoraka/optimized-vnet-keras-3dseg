@@ -26,4 +26,4 @@ optional arguments:
   --image_size IMAGE_SIZE, -is IMAGE_SIZE
   --learning_rate LEARNING_RATE, -lr LEARNING_RATE
   --group_size GROUP_SIZE, -gs GROUP_SIZE
-  --f_r
+  --f_root F_ROO

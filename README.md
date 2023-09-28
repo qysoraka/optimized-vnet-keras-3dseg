@@ -27,4 +27,5 @@ optional arguments:
   --learning_rate LEARNING_RATE, -lr LEARNING_RATE
   --group_size GROUP_SIZE, -gs GROUP_SIZE
   --f_root F_ROOT, -fr F_ROOT
-  --n_validation N_VAL
+  --n_validation N_VALIDATION
+  

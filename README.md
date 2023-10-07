@@ -29,4 +29,5 @@ optional arguments:
   --f_root F_ROOT, -fr F_ROOT
   --n_validation N_VALIDATION
   --n_test N_TEST
-  --optimizer OPTIMIZER, -op 
+  --optimizer OPTIMIZER, -op OPTIMIZER
+  --

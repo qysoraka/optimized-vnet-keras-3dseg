@@ -30,4 +30,4 @@ optional arguments:
   --n_validation N_VALIDATION
   --n_test N_TEST
   --optimizer OPTIMIZER, -op OPTIMIZER
-  --print_summ
+  --print_summary_only

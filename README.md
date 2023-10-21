@@ -32,4 +32,4 @@ optional arguments:
   --optimizer OPTIMIZER, -op OPTIMIZER
   --print_summary_only
 ```
-O
+Only .nii.

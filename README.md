@@ -32,4 +32,4 @@ optional arguments:
   --optimizer OPTIMIZER, -op OPTIMIZER
   --print_summary_only
 ```
-Only .nii.
+Only .nii.gz files should 

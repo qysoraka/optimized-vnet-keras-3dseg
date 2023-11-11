@@ -32,4 +32,4 @@ optional arguments:
   --optimizer OPTIMIZER, -op OPTIMIZER
   --print_summary_only
 ```
-Only .nii.gz files should be stored in the `--nii_dir`
+Only .nii.gz files should be stored in the `--nii_dir`. Each sample in 

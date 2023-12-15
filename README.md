@@ -36,4 +36,5 @@ Only .nii.gz files should be stored in the `--nii_dir`. Each sample in the `--ni
 - `_flair.nii.gz` 
 - `_t1.nii.gz`
 - `_t1ce.nii.gz`
-- `_t2.nii
+- `_t2.nii.gz`
+- `_seg.n

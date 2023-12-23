@@ -37,4 +37,5 @@ Only .nii.gz files should be stored in the `--nii_dir`. Each sample in the `--ni
 - `_t1.nii.gz`
 - `_t1ce.nii.gz`
 - `_t2.nii.gz`
-- `_seg.nii.gz` (l
+- `_seg.nii.gz` (label)
+T

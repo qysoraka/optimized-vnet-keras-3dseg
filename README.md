@@ -38,4 +38,4 @@ Only .nii.gz files should be stored in the `--nii_dir`. Each sample in the `--ni
 - `_t1ce.nii.gz`
 - `_t2.nii.gz`
 - `_seg.nii.gz` (label)
-The label file with `_seg.nii.gz` should have on
+The label file with `_seg.nii.gz` should have only 0, 1, 2, 4 as
